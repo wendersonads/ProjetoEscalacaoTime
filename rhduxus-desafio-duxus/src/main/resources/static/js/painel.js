@@ -1,4 +1,19 @@
 window.onload = () => listarPessoas();
+$(document).ready(function(){
+    $("button").click(function(){
+        var selectedIds = []; // Crie um array vazio para armazenar os IDs selecionados
+        $('input[name="selectIntegrante"]:checked').each(function(){
+            selectedIds.push(this.value); // Adicione o valor do ID ao array
+        });
+        // Transforme o array em uma representação JSON
+        var selectedIdsJSON = JSON.stringify(selectedIds);
+
+        // Agora você tem os IDs selecionados em formato JSON
+        console.log('IDs selecionados (JSON):', selectedIdsJSON);
+        
+    })
+})
+
 
 function listar(dados){
     while($("[name='linha']").length) $('#linha').remove();
@@ -30,6 +45,7 @@ function criaLinha(dados){
             '<div class="coluna-4">'+
                 '<button class="editar"  onclick="editar('+dados.id+')">Editar</button>'+
                 '<button class="excluir" onclick="deletar('+dados.id+')">Excluir</button>'+
+                '<input type="checkbox" name="selectIntegrante" value="' + dados.id + '"/>'+
             '</div>'+
         '</div>'
     );
