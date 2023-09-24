@@ -23,8 +23,7 @@ function salvar() {
     $.ajax({
         method: "POST",
         url: "http://localhost:8081/integrante",
-        data: JSON.stringify(
-            {
+        data: JSON.stringify({
                 franquia: $('#franquia').val(),
                 nome: $("#nome").val(),
                 funcao: $("#funcao").val(),

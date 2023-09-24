@@ -15,6 +15,7 @@ import br.com.duxusdesafio.model.ComposicaoTime;
 import br.com.duxusdesafio.model.Integrante;
 import br.com.duxusdesafio.model.Time;
 import br.com.duxusdesafio.repository.CadastroComposicaoRepository;
+import br.com.duxusdesafio.repository.CadastroIntegranteRepository;
 import br.com.duxusdesafio.repository.CadastroTimeRepository;
 
 @Service
@@ -26,9 +27,12 @@ public class CadastroTimeService {
     @Autowired
     private CadastroComposicaoRepository composicaoRepository;
 
-    public Time novoTime(@RequestBody Map<String, List<Integrante>> requestBody) {
+    @Autowired
+    private CadastroIntegranteRepository cadastroIntegranteRepository;
 
-        List<Integrante> integrantes = requestBody.get("integrantes");
+    public String novoTime(@RequestBody List<Long> idsIntegrantes) {
+
+        List<Integrante> integrantes = cadastroIntegranteRepository.findAllById(idsIntegrantes);
 
         if (integrantes == null || integrantes.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A lista de integrantes não pode estar vazia.");
@@ -50,6 +54,6 @@ public class CadastroTimeService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao criar novo time: " + e.getMessage());
         }
 
-        return novoTime;
+        return "Time da data " + dataDoDia + " salvo com sucesso!!";
     }
 }

@@ -22,13 +22,8 @@ public class CadastrarTimeController {
     public CadastroTimeService service;
 
     @PostMapping("")
-    public Time novoTime(@RequestBody List<Integrante> integrantes) {
-
-        Map<String, List<Integrante>> requestBody = new HashMap<>();
-        
-        requestBody.put("integrantes", integrantes);
-
-        return service.novoTime(requestBody);
+    public String novoTime(@RequestBody List<Long> idsIntegrantes) {
+        return service.novoTime(idsIntegrantes);
     }
 
 }
